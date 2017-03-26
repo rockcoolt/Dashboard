@@ -29,7 +29,7 @@
     <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
         <img src="assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-        <span class="hidden-md-down">admin</span>
+        <span class="hidden-md-down">{{login}}</span>
       </a>
       <div class="dropdown-menu dropdown-menu-right" dropdownMenu aria-labelledby="simple-dropdown">
 
@@ -42,13 +42,13 @@
 
         <div class="dropdown-header text-center"><strong>Settings</strong></div>
 
-        <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
+        <a class="dropdown-item" href="#" [routerLink]="['/profile']"><i class="fa fa-user"></i> Profile</a>
         <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
         <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-default">42</span></a>
         <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
         <div class="divider"></div>
         <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a>
-        <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
+        <a class="dropdown-item" href="#" (click)="onLogout()"><i class="fa fa-lock"></i> Se déconnecter</a>
       </div>
     </li>
     <li class="nav-item hidden-md-down">
@@ -124,7 +124,7 @@
           <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> Pages</a>
           <ul class="nav-dropdown-items">
             <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active" [routerLink]="['/pages/login']"><i class="icon-star"></i> Login</a>
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/login']"><i class="icon-star"></i> Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" routerLinkActive="active" [routerLink]="['/pages/register']"><i class="icon-star"></i> Register</a>
@@ -136,8 +136,7 @@
               <a class="nav-link" routerLinkActive="active" [routerLink]="['/pages/500']"><i class="icon-star"></i> Error 500</a>
             </li>
           </ul>
-        </li>
-        
+        </li>       
       </ul>
     </nav>
   </div>
@@ -168,7 +167,7 @@
   <aside class="aside-menu">
     <tabset>
       <tab>
-        <template tabHeading><i class="icon-list"></i></template>
+        <ng-template tabHeading><i class="icon-list"></i></ng-template>
         <div class="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
           <small><b>Today</b></small>
         </div>
@@ -255,7 +254,7 @@
         <hr class="mx-1 my-0">
       </tab>
       <tab>
-        <template tabHeading><i class="icon-speech"></i></template>
+        <ng-template tabHeading><i class="icon-speech"></i></ng-template>
         <div class="p-1">
           <div class="message">
             <div class="py-1 pb-3 mr-1 float-left">
@@ -334,7 +333,7 @@
         </div>
       </tab>
       <tab>
-        <template tabHeading><i class="icon-settings"></i></template>
+        <ng-template tabHeading><i class="icon-settings"></i></ng-template>
         <div class="p-1">
           <h6>Settings</h6>
 

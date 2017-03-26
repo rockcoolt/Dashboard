@@ -5,6 +5,9 @@ import { Component } from '@angular/core';
 })
 export class TablesComponent {
 
-  constructor() { }
+  constructor() {
+
+  }
+
 
 }

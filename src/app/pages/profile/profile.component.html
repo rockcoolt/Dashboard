@@ -1,0 +1,55 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Modifier votre profile</strong> 
+        </div>
+         <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+          <div class="card-block">          
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group" [ngClass]="{'has-danger': (!login.valid && login.touched), 'has-success': (login.valid && login.touched)}">
+                  <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                  <input [formControl]="login" type="text" id="input1-group1" name="input1-group1" class="form-control" placeholder="Login">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group" [ngClass]="{'has-danger': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+                  <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                  <input [formControl]="email" type="email" id="input2-group1" name="input2-group1" class="form-control" placeholder="Email">  
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <div class="input-group" [ngClass]="{'has-danger': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+                  <span class="input-group-addon"><i class="icon-lock"></i></span>
+                  <input [formControl]="password" type="password" id="input3-group1" name="input3-group1" class="form-control" placeholder="Nouveau mot de passe">
+                </div>
+              </div>
+            <div class="col-md-6">
+                 <div class="input-group" [ngClass]="{'has-danger': (!repeatPassword.valid && repeatPassword.touched), 'has-success': (repeatPassword.valid && repeatPassword.touched)}">
+                  <span class="input-group-addon"><i class="icon-lock"></i></span>
+                  <input [formControl]="repeatPassword"  type="password" id="input3-group1" name="input3-group1" class="form-control" placeholder="Confirmer le mot de passe">
+                  <span *ngIf="!passwords.valid && (password.touched || repeatPassword.touched)" class="help-block sub-little-text">Passwords don't match.</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">  
+                <picture-uploader [formControl]="avatar" [picture]="profile.picture" [uploaderOptions]="uploaderOptions" ngDefaultControl></picture-uploader>           
+              </div>
+           </div>
+          </div>
+          <div class="card-footer">
+            <button [disabled]="!form.valid" type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Enregistrer</button>
+            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Effacer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
