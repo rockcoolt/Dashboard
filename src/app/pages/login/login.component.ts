@@ -30,7 +30,8 @@ export class LoginComponent {
       this.authService.authentication(values.login, values.password).subscribe({
         next: message => {
           if (this.authService.isLoggedIn) {
-            console.log(message);
+            // console.log(message);
+
             // Get the redirect URL from our auth service
             // If no redirect has been set, use the default
             const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'dashboard';

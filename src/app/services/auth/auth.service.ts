@@ -15,6 +15,7 @@ import 'rxjs/add/operator/catch';
 export class AuthService {
     public isLoggedIn: boolean = false;
     public redirectUrl: string;
+    public token: string;
 
     private login: string;
     private authenticationUrl = 'http://localhost:3000/api/login';
@@ -22,14 +23,6 @@ export class AuthService {
     constructor( private router: Router, private http: Http ) { }
 
     authentication(_login: string, _password: string): Observable<any> {
-
-        // return Observable
-        // .of(true)
-        // .delay(1000)
-        // .do(val => {
-        //     this.isLoggedIn = true;
-        //     this.login = _login;
-        // });
 
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
@@ -40,6 +33,7 @@ export class AuthService {
         .do(val => {
             this.isLoggedIn = true;
             this.login = _login;
+            this.token = val.token;
         });
     };
 
@@ -50,6 +44,10 @@ export class AuthService {
 
     get Login(): string {
         return this.login;
+    }
+
+    get Token(): string {
+        return this.token;
     }
 
 }

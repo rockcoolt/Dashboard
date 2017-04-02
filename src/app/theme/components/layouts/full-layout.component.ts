@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import * as io from 'socket.io-client';
+import { AuthService, SocketService } from '../../../services';
 
-import { AuthService } from '../../../services';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,14 +14,11 @@ export class FullLayoutComponent implements OnInit {
   public status: {isopen: boolean} = {isopen: false};
 
   public login: string;
-  socket: any;
+  public notifications:Array<string> = [];
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private socketService: SocketService) {
     this.login = authService.Login;
-    this.socket = io.connect('http://localhost:3000');
-    this.socket.on('message', function(message) {
-      alert(`Le serveur a un message pour vous : ${message}`);
-    });
+    this.getNotifications();
   }
 
 
@@ -40,4 +37,16 @@ export class FullLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  private getNotifications(){
+      this.socketService.Message.subscribe({
+        next: message => {
+          this.notifications.push(message);
+        },
+        error: error => {
+          console.log(error);
+        },
+        complete: () => console.log('done'),
+      });
+  }
 }
