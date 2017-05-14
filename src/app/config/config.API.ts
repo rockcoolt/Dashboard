@@ -1,4 +1,4 @@
 export const API = {
-    server: 'http://localhost:4000',
+    server: 'https://rockcoolt.xyz',
     route: '/api/'
 }
