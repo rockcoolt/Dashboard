@@ -1,4 +1,4 @@
 export const API = {
-    server: 'https://localhost',
+    server: 'localhost:4000',
     route: '/api/'
 }
