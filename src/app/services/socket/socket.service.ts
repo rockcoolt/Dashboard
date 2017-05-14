@@ -13,7 +13,7 @@ export class SocketService {
     private socket: any; 
 
     constructor(private authService: AuthService){
-        this.socket = io.connect(`${API.server}${API.route}`, {
+        this.socket = io.connect(`${API.server}`, {
             query: {token: authService.Token}
         });
     }
