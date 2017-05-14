@@ -3,4 +3,5 @@ export class User {
     public password: string;
     public email: string;
     public avatar: string;
+    public roles: string;
 };

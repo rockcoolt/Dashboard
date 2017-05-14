@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { SocketService } from '../../services';
+
 @Component({
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
 
-  // constructor( ) { }
+  constructor(private socketService: SocketService ) { }
 
   public brandPrimary: string =  '#20a8d8';
   public brandSuccess: string =  '#4dbd74';
@@ -459,6 +461,9 @@ export class DashboardComponent implements OnInit {
   public sparklineChartLegend: boolean = false;
   public sparklineChartType: string = 'line';
 
+  private test(){
+    this.socketService.setMessage();
+  }
 
   ngOnInit(): void {
     // generate random values for mainChart

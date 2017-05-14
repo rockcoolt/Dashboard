@@ -1,7 +1,8 @@
 <div class="picture-group" [ngClass]="{uploading: uploadInProgress}">
   <div class="picture-wrapper" (click)="bringFileSelector();">
+    <img [src]="previewData" *ngIf="previewData && !!!picture">
     <img [src]="picture" *ngIf="picture">
-    <img [src]="defaultPicture" *ngIf="!!!picture && !!defaultPicture">
+    <img [src]="defaultPicture" *ngIf="!!!picture && !!defaultPicture && !!!previewData">
 
     <div class="loading" *ngIf="uploadInProgress">
       <div class="spinner">
@@ -12,8 +13,11 @@
   </div>
   <i class="icon-close icons" (click)="removePicture();" *ngIf="picture && canDelete"></i>
   <a href class="change-picture" (click)="bringFileSelector();">Modifier votre avatar</a>
-  <input #fileUpload ngFileSelect [options]="uploaderOptions"
+  <!--<input #fileUpload ngFileSelect 
+         [options]="uploaderOptions"
          (onUpload)="_onUpload($event)"
          (beforeUpload)="beforeUpload($event)"
-         type="file" hidden="true">
+         (onPreviewData)="handlePreviewData($event)"
+         [events]="inputUploadEvents"
+         type="file" hidden="true">-->
 </div>

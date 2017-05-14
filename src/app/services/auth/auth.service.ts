@@ -3,13 +3,12 @@ import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { API } from '../../config';  
 
 @Injectable()
 export class AuthService {
@@ -18,7 +17,8 @@ export class AuthService {
     public token: string;
 
     private login: string;
-    private authenticationUrl = 'http://localhost:3000/api/login';
+    private authenticationUrl = `${API.server}${API.route}login`;
+    private logoutnUrl = `${API.server}${API.route}logout`;
 
     constructor( private router: Router, private http: Http ) { }
 
@@ -37,9 +37,15 @@ export class AuthService {
         });
     };
 
-    logout(): void {
-        this.isLoggedIn = false;
-        this.router.navigate(['login']);
+    logout(): Observable<any>  {
+        return this.http.get(this.logoutnUrl)
+        .map((res: Response) => res.json())
+        .catch((error: any) => Observable.throw(error.json() || 'Server error'))
+        .do(val => {
+            this.isLoggedIn = false;
+            this.router.navigate(['login']);
+        });
+
     }
 
     get Login(): string {

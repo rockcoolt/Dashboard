@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 
 import { EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
 
-import { NgUploaderOptions } from 'ngx-uploader';
-
 @Component({
   templateUrl: 'profile.component.html'
 })
@@ -20,12 +18,6 @@ export class ProfileComponent {
 
   public profile: any = {
     picture: ''
-  };
-
-  public uploaderOptions: NgUploaderOptions = {
-    url: 'http://websefefefite.com/upload',
-    autoUpload: true,
-    calculateSpeed: true
   };
 
   constructor(private fb: FormBuilder) {

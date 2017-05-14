@@ -26,9 +26,9 @@ export class LoginComponent {
 
   public onLogin(values: User): void {
     if (this.form.valid) {
-
       this.authService.authentication(values.login, values.password).subscribe({
         next: message => {
+          console.log('message: ', message);
           if (this.authService.isLoggedIn) {
             // console.log(message);
 

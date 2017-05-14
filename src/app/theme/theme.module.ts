@@ -2,8 +2,8 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { TabsModule } from 'ng2-bootstrap/tabs';
-import { DropdownModule } from 'ng2-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgUploaderModule } from 'ngx-uploader';
 
 import { EmailValidator, EqualPasswordsValidator} from './validators';
@@ -54,7 +54,7 @@ const VALIDATORS = [
   imports: [
     CommonModule,
     RouterModule,
-    DropdownModule,
+    BsDropdownModule,
     NgUploaderModule,
     TabsModule.forRoot()
 

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NgUploaderOptions } from 'ngx-uploader';
-
 import { ProfileComponent } from './profile.component';
 
 const routes: Routes = [

@@ -1,5 +1,5 @@
 import { Component, ViewChild, Input, Output, EventEmitter, ElementRef, Renderer } from '@angular/core';
-import { NgUploaderOptions } from 'ngx-uploader';
+import { UploadFile  } from 'ngx-uploader';
 
 import 'style-loader!./pictureUploader.scss';
 
@@ -12,7 +12,21 @@ export class PictureUploaderComponent {
   @Input() defaultPicture: string = 'assets/img/theme/no-photo.png';
   @Input() picture: string = '';
 
-  @Input() uploaderOptions: NgUploaderOptions = { url: '' };
+  @Input() uploaderOptions: UploadFile;
+  //= { 
+  //     //url: 'http://api.ngx-uploader.com/upload',
+  //     //filterExtensions: true,
+  //     //allowedExtensions: ['jpg', 'png'],
+  //     //data: { userId: 12 },
+  //     //autoUpload: false,
+  //     //fieldName: 'file',
+  //     //fieldReset: true,
+  //     //maxUploads: 2,
+  //     //method: 'POST',
+  //     //previewUrl: true,
+  //     //withCredentials: false
+  // };
+
   @Input() canDelete: boolean = true;
 
   @Output() onUpload = new EventEmitter<any>();
@@ -21,11 +35,15 @@ export class PictureUploaderComponent {
   @ViewChild('fileUpload') public _fileUpload: ElementRef;
 
   public uploadInProgress: boolean;
+  private previewData: any;
+  private inputUploadEvents: EventEmitter<string>;
 
   constructor(private renderer: Renderer) {
+     this.inputUploadEvents = new EventEmitter<string>();
   }
 
-  beforeUpload(uploadingFile): void {
+
+  private beforeUpload(uploadingFile): void {
     const files = this._fileUpload.nativeElement.files;
 
     if (files.length) {
@@ -40,17 +58,25 @@ export class PictureUploaderComponent {
     }
   }
 
-  bringFileSelector(): boolean {
+  private bringFileSelector(): boolean {
     this.renderer.invokeElementMethod(this._fileUpload.nativeElement, 'click');
     return false;
   }
 
-  removePicture(): boolean {
+  private removePicture(): boolean {
     this.picture = '';
     return false;
   }
 
-  _changePicture(file: File): void {
+  private handlePreviewData(data: any) {
+    this.previewData = data;
+  }
+
+  public startUpload() {
+    this.inputUploadEvents.emit('startUpload');
+  }
+
+  private _changePicture(file: File): void {
     const reader = new FileReader();
     reader.addEventListener('load', (event: Event) => {
       this.picture = (<any> event.target).result;
@@ -58,8 +84,7 @@ export class PictureUploaderComponent {
     reader.readAsDataURL(file);
   }
 
-  _onUpload(data): void {
-    console.log(data);
+  private _onUpload(data): void {
     if (data['done'] || data['abort'] || data['error']) {
       this._onUploadCompleted(data);
     } else {
@@ -67,12 +92,13 @@ export class PictureUploaderComponent {
     }
   }
 
-  _onUploadCompleted(data): void {
+  private _onUploadCompleted(data): void {
     this.uploadInProgress = false;
-    this.onUploadCompleted.emit(data);
+    const response = JSON.parse(data.response)[0];
+    this.onUploadCompleted.emit(response);
   }
 
-  _canUploadOnServer(): boolean {
+  private _canUploadOnServer(): boolean {
     return !!this.uploaderOptions['url'];
   }
 }

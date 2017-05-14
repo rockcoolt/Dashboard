@@ -5,11 +5,13 @@ import { P404Component } from './error/404.component';
 import { P500Component } from './error/500.component';
 import { RegisterComponent } from './register/register.component';
 import { PagesRoutingModule } from './pages-routing.module';
+import { ThemeModule } from '../theme/theme.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    ThemeModule
   ],
   declarations: [
     P404Component,

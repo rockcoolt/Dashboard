@@ -4,11 +4,11 @@
       <div class="col-md-6">
         <div class="card mx-2">
           <div class="card-block p-2">
-            <h1>Register</h1>
-            <p class="text-muted">Create your account</p>
+            <h1>S'enregistrer</h1>
+            <p class="text-muted">Créer ton compte</p>
             <div class="input-group mb-1">
               <span class="input-group-addon"><i class="icon-user"></i></span>
-              <input type="text" class="form-control" placeholder="Username">
+              <input type="text" class="form-control" placeholder="Login">
             </div>
 
             <div class="input-group mb-1">
@@ -17,16 +17,25 @@
             </div>
 
             <div class="input-group mb-1">
+              <span class="input-group-addon"><i class="icon-user"></i></span>
+              <input type="text" class="form-control" placeholder="Roles">
+            </div>
+
+            <div class="input-group mb-1">
               <span class="input-group-addon"><i class="icon-lock"></i></span>
-              <input type="password" class="form-control" placeholder="Password">
+              <input type="password" class="form-control" placeholder="Mot de passe">
             </div>
 
             <div class="input-group mb-2">
               <span class="input-group-addon"><i class="icon-lock"></i></span>
-              <input type="password" class="form-control" placeholder="Repeat password">
+              <input type="password" class="form-control" placeholder="Confirmer le mot de passe">
             </div>
 
-            <button type="button" class="btn btn-block btn-success">Create Account</button>
+              <div class="input-group mb-2">  
+                <!--<picture-uploader #uploader (onUploadCompleted)="onUploadCompleted($event)" ngDefaultControl></picture-uploader>-->
+              </div>
+
+            <button type="button" (click)="onRegister()" class="btn btn-block btn-success">S'enregistrer</button>
           </div>
           <div class="card-footer p-2">
             <div class="row">

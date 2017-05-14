@@ -33,7 +33,15 @@ export class FullLayoutComponent implements OnInit {
   }
 
   public onLogout() {
-    this.authService.logout();
+    this.authService.logout().subscribe({
+      next: message => {
+          console.log(message);
+      },
+      error: error => {
+          console.log(error);
+      },
+      complete: () => console.log('done'),
+    });
   }
 
   ngOnInit(): void {}
