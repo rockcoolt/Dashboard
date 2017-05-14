@@ -9,7 +9,7 @@ export class RegisterComponent {
 
   constructor() { }
 
-  private onRegister(){
+  public onRegister(){
     // this.uploader.startUpload();
   }
 

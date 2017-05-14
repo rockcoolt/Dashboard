@@ -35,7 +35,7 @@ export class PictureUploaderComponent {
   @ViewChild('fileUpload') public _fileUpload: ElementRef;
 
   public uploadInProgress: boolean;
-  private previewData: any;
+  public previewData: any;
   private inputUploadEvents: EventEmitter<string>;
 
   constructor(private renderer: Renderer) {
@@ -58,7 +58,7 @@ export class PictureUploaderComponent {
     }
   }
 
-  private bringFileSelector(): boolean {
+  public bringFileSelector(): boolean {
     this.renderer.invokeElementMethod(this._fileUpload.nativeElement, 'click');
     return false;
   }

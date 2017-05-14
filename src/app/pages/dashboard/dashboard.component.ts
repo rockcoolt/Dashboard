@@ -461,7 +461,7 @@ export class DashboardComponent implements OnInit {
   public sparklineChartLegend: boolean = false;
   public sparklineChartType: string = 'line';
 
-  private test(){
+  public test(){
     this.socketService.setMessage();
   }
 
