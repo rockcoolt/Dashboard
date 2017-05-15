@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+// import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -37,10 +37,12 @@ const APP_PROVIDERS = [
   ],
   providers: [
     APP_PROVIDERS,
-  {
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  }],
+  // no #  
+  // {
+  //   provide: LocationStrategy,
+  //   useClass: HashLocationStrategy
+  // }
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
