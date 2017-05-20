@@ -57,7 +57,7 @@ export class RegisterComponent {
     }
   }
 
-  private onUpload($event){
+  public onUpload($event){
     if($event){
       this.files = $event;
       console.log('$event: ', this.files);
