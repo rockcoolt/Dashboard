@@ -11,13 +11,7 @@
       </div>
     </div>
   </div>
-  <i class="icon-close icons" (click)="removePicture();" *ngIf="picture && canDelete"></i>
-  <a href class="change-picture" (click)="bringFileSelector();">Modifier votre avatar</a>
-  <!--<input #fileUpload ngFileSelect 
-         [options]="uploaderOptions"
-         (onUpload)="_onUpload($event)"
-         (beforeUpload)="beforeUpload($event)"
-         (onPreviewData)="handlePreviewData($event)"
-         [events]="inputUploadEvents"
-         type="file" hidden="true">-->
+  <i class="icon-close icons" (click)="removePicture();" *ngIf="previewData && canDelete"></i>
+  <a href class="change-picture" (click)="bringFileSelector();">Ajouter votre avatar</a>
+    <input #fileUpload (change)="fileChangeEvent($event)" type="file" hidden="true">
 </div>

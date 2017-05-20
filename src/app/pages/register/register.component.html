@@ -4,48 +4,46 @@
       <div class="col-md-6">
         <div class="card mx-2">
           <div class="card-block p-2">
-            <h1>S'enregistrer</h1>
-            <p class="text-muted">Créer ton compte</p>
-            <div class="input-group mb-1">
-              <span class="input-group-addon"><i class="icon-user"></i></span>
-              <input type="text" class="form-control" placeholder="Login">
-            </div>
+            <form [formGroup]="form" (ngSubmit)="onRegister(form.value)" class="form-horizontal">
+              <h1>Enregistrer</h1>
+              <p class="text-muted">Créer un compte</p>
+              <div class="input-group mb-1" [ngClass]="{'has-danger': (!login.valid && login.touched), 'has-success': (login.valid && login.touched)}">
+                <span class="input-group-addon"><i class="icon-user"></i></span>
+                <input [formControl]="login" type="login" class="form-control" placeholder="Login">
+              </div>
 
-            <div class="input-group mb-1">
-              <span class="input-group-addon">@</span>
-              <input type="text" class="form-control" placeholder="Email">
-            </div>
+              <div class="input-group mb-1" [ngClass]="{'has-danger': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+                <span class="input-group-addon">@</span>
+                <input [formControl]="email" type="email" class="form-control" placeholder="Email">
+              </div>
 
-            <div class="input-group mb-1">
-              <span class="input-group-addon"><i class="icon-user"></i></span>
-              <input type="text" class="form-control" placeholder="Roles">
-            </div>
+              <div class="input-group mb-1" [ngClass]="{'has-danger': (!role.valid && role.touched), 'has-success': (role.valid && role.touched)}">
+                <span class="input-group-addon"><i class="icon-user"></i></span>
+                <select [formControl]="role" id="select" name="select" class="form-control" >
+                  <option value="0" disabled="true">Sélectionner un rôle</option>
+                  <option *ngFor="let role of roles;" [value]="role.id">{{role.description}}</option>
+                </select>
+              </div>
 
-            <div class="input-group mb-1">
-              <span class="input-group-addon"><i class="icon-lock"></i></span>
-              <input type="password" class="form-control" placeholder="Mot de passe">
-            </div>
+              <div class="input-group mb-1" [ngClass]="{'has-danger': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+                <span class="input-group-addon"><i class="icon-lock"></i></span>
+                <input [formControl]="password" type="password" class="form-control" placeholder="Mot de passe">
+              </div>
 
-            <div class="input-group mb-2">
-              <span class="input-group-addon"><i class="icon-lock"></i></span>
-              <input type="password" class="form-control" placeholder="Confirmer le mot de passe">
-            </div>
+              <div class="form-group" [ngClass]="{'has-danger': ( !repeatPassword.valid && repeatPassword.touched), 'has-success': (repeatPassword.valid && repeatPassword.touched) }">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon-lock"></i></span>
+                  <input [formControl]="repeatPassword" type="password" class="form-control" placeholder="Confirmer le mot de passe">
+                </div>
+                <div *ngIf="!passwords.valid && (password.touched && repeatPassword.touched)" class="form-control-feedback">Les mots de passe ne correspondent pas.</div>
+              </div>
 
               <div class="input-group mb-2">  
-                <!--<picture-uploader #uploader (onUploadCompleted)="onUploadCompleted($event)" ngDefaultControl></picture-uploader>-->
+                <picture-uploader #uploader (onUpload)="onUpload($event)"></picture-uploader>
               </div>
 
-            <button type="button" (click)="onRegister()" class="btn btn-block btn-success">S'enregistrer</button>
-          </div>
-          <div class="card-footer p-2">
-            <div class="row">
-              <div class="col-6">
-                <button class="btn btn-block btn-facebook" type="button"><span>facebook</span></button>
-              </div>
-              <div class="col-6">
-                <button class="btn btn-block btn-twitter" type="button"><span>twitter</span></button>
-              </div>
-            </div>
+              <button [disabled]="!form.valid" type="submit" class="btn btn-block btn-success">Enregistrer</button>
+            </form>
           </div>
         </div>
       </div>

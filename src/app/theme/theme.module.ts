@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { NgUploaderModule } from 'ngx-uploader';
 
 import { EmailValidator, EqualPasswordsValidator} from './validators';
 
@@ -55,7 +54,6 @@ const VALIDATORS = [
     CommonModule,
     RouterModule,
     BsDropdownModule,
-    NgUploaderModule,
     TabsModule.forRoot()
 
   ],

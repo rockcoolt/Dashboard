@@ -1,5 +1,8 @@
 import { Component, ViewChild, Input, Output, EventEmitter, ElementRef, Renderer } from '@angular/core';
-import { UploadFile  } from 'ngx-uploader';
+
+import { Observable } from 'rxjs/Observable';
+
+import { API } from '../../../config'; 
 
 import 'style-loader!./pictureUploader.scss';
 
@@ -12,93 +15,58 @@ export class PictureUploaderComponent {
   @Input() defaultPicture: string = 'assets/img/theme/no-photo.png';
   @Input() picture: string = '';
 
-  @Input() uploaderOptions: UploadFile;
-  //= { 
-  //     //url: 'http://api.ngx-uploader.com/upload',
-  //     //filterExtensions: true,
-  //     //allowedExtensions: ['jpg', 'png'],
-  //     //data: { userId: 12 },
-  //     //autoUpload: false,
-  //     //fieldName: 'file',
-  //     //fieldReset: true,
-  //     //maxUploads: 2,
-  //     //method: 'POST',
-  //     //previewUrl: true,
-  //     //withCredentials: false
-  // };
-
   @Input() canDelete: boolean = true;
 
   @Output() onUpload = new EventEmitter<any>();
-  @Output() onUploadCompleted = new EventEmitter<any>();
 
   @ViewChild('fileUpload') public _fileUpload: ElementRef;
 
   public uploadInProgress: boolean;
   public previewData: any;
-  private inputUploadEvents: EventEmitter<string>;
+  
+  private filesToUpload: Array<File>;
 
   constructor(private renderer: Renderer) {
-     this.inputUploadEvents = new EventEmitter<string>();
+    this.filesToUpload = [];
   }
+ 
+    public fileChangeEvent(fileInput: any): void{
+        const self = this;  
+        this.filesToUpload = <Array<File>> fileInput.target.files;
 
+        if (this.filesToUpload) {
+            var reader = new FileReader();
+           
+            reader.onprogress = function (e : any) {
+                console.log('onprogress: ', e);
+                self.uploadInProgress = true;
+            }
 
-  private beforeUpload(uploadingFile): void {
-    const files = this._fileUpload.nativeElement.files;
+            reader.onload = function (e : any) {
+                console.log('onload: ', e);
+            }
 
-    if (files.length) {
-      const file = files[0];
-      this._changePicture(file);
+            reader.onloadend = function (e : any) {
+                console.log('onloadend: ', e);
+                self.previewData = e.target.result;
+                self.uploadInProgress = false;
+                self.onUpload.emit(self.filesToUpload);
+            }
 
-      if (!this._canUploadOnServer()) {
-        uploadingFile.setAbort();
-      } else {
-        this.uploadInProgress = true;
-      }
+            if(this.filesToUpload.length > 0){
+                reader.readAsDataURL(this.filesToUpload[0]);
+            }    
+            
+        }
     }
-  }
-
+ 
   public bringFileSelector(): boolean {
     this.renderer.invokeElementMethod(this._fileUpload.nativeElement, 'click');
     return false;
   }
 
-  private removePicture(): boolean {
-    this.picture = '';
-    return false;
-  }
-
-  private handlePreviewData(data: any) {
-    this.previewData = data;
-  }
-
-  public startUpload() {
-    this.inputUploadEvents.emit('startUpload');
-  }
-
-  private _changePicture(file: File): void {
-    const reader = new FileReader();
-    reader.addEventListener('load', (event: Event) => {
-      this.picture = (<any> event.target).result;
-    }, false);
-    reader.readAsDataURL(file);
-  }
-
-  private _onUpload(data): void {
-    if (data['done'] || data['abort'] || data['error']) {
-      this._onUploadCompleted(data);
-    } else {
-      this.onUpload.emit(data);
-    }
-  }
-
-  private _onUploadCompleted(data): void {
-    this.uploadInProgress = false;
-    const response = JSON.parse(data.response)[0];
-    this.onUploadCompleted.emit(response);
-  }
-
-  private _canUploadOnServer(): boolean {
-    return !!this.uploaderOptions['url'];
+  public removePicture(): void {
+     this.filesToUpload = [];
+     this.previewData = '';
   }
 }

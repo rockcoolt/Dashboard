@@ -14,13 +14,15 @@ import { ThemeModule } from './theme/theme.module';
 // Routing Module
 import { AppRoutingModule } from './app.routing';
 
-import { AuthService, AuthGuard, SocketService } from './services';
+import { AuthService, AuthGuard, SocketService, UploadService, RegisterService } from './services';
 
 // Application wide providers
 const APP_PROVIDERS = [
   AuthGuard,
   AuthService,
-  SocketService
+  SocketService,
+  UploadService,
+  RegisterService
 ];
 
 @NgModule({

@@ -34,7 +34,7 @@
                  <div class="input-group" [ngClass]="{'has-danger': (!repeatPassword.valid && repeatPassword.touched), 'has-success': (repeatPassword.valid && repeatPassword.touched)}">
                   <span class="input-group-addon"><i class="icon-lock"></i></span>
                   <input [formControl]="repeatPassword"  type="password" id="input3-group1" name="input3-group1" class="form-control" placeholder="Confirmer le mot de passe">
-                  <span *ngIf="!passwords.valid && (password.touched || repeatPassword.touched)" class="help-block sub-little-text">Passwords don't match.</span>
+                  <span *ngIf="!passwords.valid && (password.touched && repeatPassword.touched)" class="help-block sub-little-text">Passwords don't match.</span>
                 </div>
               </div>
             </div>

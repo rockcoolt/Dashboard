@@ -55,14 +55,18 @@ export const routes: Routes = [
         path: 'profile',
         loadChildren: './pages/profile/profile.module#ProfileModule',
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'register',
+        loadChildren: './pages/register/register.module#RegisterModule'
       }
     ]
   },
   {
-    path: 'pages',
+    path: 'error',
     component: SimpleLayoutComponent,
     data: {
-      title: 'Pages'
+      title: 'Error'
     },
     children: [
       {
