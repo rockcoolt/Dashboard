@@ -26,7 +26,7 @@ export class LoginComponent {
    }
 
   public onLogin(captchaResponse: string ,values: User): void {
-
+    console.log('captchaResponse: ', captchaResponse);
     const newResponse = captchaResponse
       ? `${captchaResponse.substr(0, 7)}...${captchaResponse.substr(-7)}`
       : captchaResponse;
