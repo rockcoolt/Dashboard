@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
+import { RecaptchaModule } from 'ng-recaptcha';
+
 // Theme
 import { ThemeModule } from './theme/theme.module';
 
@@ -32,6 +34,7 @@ const APP_PROVIDERS = [
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     ThemeModule.forRoot(),
+    RecaptchaModule.forRoot(),
     ChartsModule
   ],
   declarations: [

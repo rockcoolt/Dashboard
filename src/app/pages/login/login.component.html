@@ -5,7 +5,7 @@
         <div class="card-group mb-0">
           <div class="card p-2">
             <div class="card-block">
-              <form [formGroup]="form" (ngSubmit)="onLogin(form.value)" class="form-horizontal">
+              <form [formGroup]="form" (ngSubmit)="captchaRef.execute()" class="form-horizontal">
                 <h1>Se connecter</h1>
                 <p class="text-muted">Connectez-vous à votre compte</p>
                 <div class="input-group mb-1 has-success" [ngClass]="{'has-danger': (!login.valid && login.touched), 'has-success': (login.valid && login.touched)}">
@@ -18,7 +18,18 @@
                 </div>
                 <div class="row">
                   <div class="col-6">
-                    <button [disabled]="!form.valid" type="submit" class="btn btn-primary px-2" >Connecter</button>
+                    <button 
+                    [disabled]="!form.valid" 
+                    type="submit" 
+                    class="btn btn-primary px-2">Connecter
+                    </button>
+
+                    <re-captcha
+                      #captchaRef="reCaptcha"
+                      (resolved)="onLogin($event)"
+                      siteKey="6LdiVyIUAAAAAFSGMgB9gvPJBjCbkNbP00-NWPvC"
+                      size="invisible"
+                    ></re-captcha>
                   </div>
                 </div>
               </form>

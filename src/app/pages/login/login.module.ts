@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+import { RecaptchaModule } from 'ng-recaptcha';
+
 import { LoginComponent } from './login.component';
 import { LoginRoutingModule } from './login-routing.module';
 
@@ -10,7 +12,8 @@ import { LoginRoutingModule } from './login-routing.module';
     CommonModule,
     LoginRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RecaptchaModule
   ],
   declarations: [ LoginComponent ]
 })
