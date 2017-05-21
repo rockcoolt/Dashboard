@@ -26,7 +26,7 @@
 
                     <re-captcha
                       #captchaRef="reCaptcha"
-                      (resolved)="onLogin($event)"
+                      (resolved)="onLogin($event, form.value)"
                       siteKey="6LdiVyIUAAAAAFSGMgB9gvPJBjCbkNbP00-NWPvC"
                       size="invisible"
                     ></re-captcha>
