@@ -21,7 +21,6 @@ export class SocketService {
     public get Message(): Observable<any> {          
          return Observable.create((observer: any) => {
             this.socket.on('message', (message: any) => {
-                //alert(`Le serveur a un message pour vous : ${message}`);
                 observer.next(message) 
             });      
         });

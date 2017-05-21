@@ -14,10 +14,12 @@ export class FullLayoutComponent implements OnInit {
   public status: {isopen: boolean} = {isopen: false};
 
   public login: string;
+  public avatar: string;
   public notifications:Array<string> = [];
 
   constructor(private authService: AuthService, private socketService: SocketService) {
     this.login = authService.Login;
+    this.avatar = authService.Avatar;
     this.getNotifications();
   }
 
@@ -39,8 +41,7 @@ export class FullLayoutComponent implements OnInit {
       },
       error: error => {
           console.log(error);
-      },
-      complete: () => console.log('done'),
+      }
     });
   }
 
@@ -53,8 +54,7 @@ export class FullLayoutComponent implements OnInit {
         },
         error: error => {
           console.log(error);
-        },
-        complete: () => console.log('done'),
+        }
       });
   }
 }

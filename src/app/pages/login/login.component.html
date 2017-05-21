@@ -23,9 +23,8 @@
                     type="submit" 
                     class="btn btn-primary px-2">Connecter
                     </button>
-
                     <re-captcha
-                      #captchaRef="reCaptcha"
+                      #captchaRef
                       (resolved)="onLogin($event, form.value)"
                       siteKey="6LdiVyIUAAAAAFSGMgB9gvPJBjCbkNbP00-NWPvC"
                       size="invisible"

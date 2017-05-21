@@ -9,51 +9,66 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { API } from '../../config';  
+import { User } from '../../models';  
 
 @Injectable()
 export class AuthService {
-    public isLoggedIn: boolean = false;
     public redirectUrl: string;
-    public token: string;
+    public token: string = 'token';
 
+    private user: string = 'user';
     private login: string;
     private authenticationUrl = `${API.server}${API.route}login`;
     private logoutnUrl = `${API.server}${API.route}logout`;
 
     constructor( private router: Router, private http: Http ) { }
 
-    authentication(_login: string, _password: string): Observable<any> {
+    authentication(_login: string, _password: string, _captcha: string): Observable<any> {
 
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.authenticationUrl, {login: _login, password: _password}, options)
+        return this.http.post(this.authenticationUrl, {login: _login, password: _password, captcha: _captcha}, options)
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error.json() || 'Server error'))
         .do(val => {
-            this.isLoggedIn = true;
-            this.login = _login;
-            this.token = val.token;
+            localStorage.setItem(this.user, JSON.stringify(val.user));
+            localStorage.setItem('isLoggedIn', JSON.stringify(true));
+            localStorage.setItem(this.token, JSON.stringify(val.token));
         });
     };
 
     logout(): Observable<any>  {
-        return this.http.get(this.logoutnUrl)
+        return this.http.post(this.logoutnUrl, {login: this.Login})
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error.json() || 'Server error'))
         .do(val => {
-            this.isLoggedIn = false;
+            localStorage.clear();
             this.router.navigate(['login']);
         });
 
     }
+    get isLoggedIn(): boolean {
+        return JSON.parse(localStorage.getItem('isLoggedIn'));
+    }
+    get User(): User {
+        return JSON.parse(localStorage.getItem(this.user));
+    }
+
+    get Role(): string {
+        return  this.User.role;
+    }
+
+    get Avatar(): string {
+        return  this.User.avatar === '-1' ? '../../../assets/img/theme/no-photo.png' : `${API.server}${API.route}downlad/${this.User.avatar}`;
+    }
 
     get Login(): string {
-        return this.login;
+        return  this.User.login;
     }
 
     get Token(): string {
-        return this.token;
+        return JSON.parse(localStorage.getItem(this.token));
     }
 
 }

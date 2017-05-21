@@ -64,7 +64,7 @@ export class RegisterService {
             login: _login, 
             email: _email,
             password: _password,
-            roles: _role,
+            role: _role,
             avatar: _avatar
         }, options)
         .map((res: Response) => res.json())
