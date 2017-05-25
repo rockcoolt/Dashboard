@@ -1,52 +1,56 @@
-<div class="app flex-row align-items-center">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card mx-2">
-          <div class="card-block p-2">
-            <form [formGroup]="form" (ngSubmit)="onRegister(form.value)" class="form-horizontal">
-              <h1>Enregistrer</h1>
-              <p class="text-muted">Créer un compte</p>
-              <div class="input-group mb-1" [ngClass]="{'has-danger': (!login.valid && login.touched), 'has-success': (login.valid && login.touched)}">
-                <span class="input-group-addon"><i class="icon-user"></i></span>
-                <input [formControl]="login" type="login" class="form-control" placeholder="Login">
-              </div>
-
-              <div class="input-group mb-1" [ngClass]="{'has-danger': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
-                <span class="input-group-addon">@</span>
-                <input [formControl]="email" type="email" class="form-control" placeholder="Email">
-              </div>
-
-              <div class="input-group mb-1" [ngClass]="{'has-danger': (!role.valid && role.touched), 'has-success': (role.valid && role.touched)}">
-                <span class="input-group-addon"><i class="icon-user"></i></span>
-                <select [formControl]="role" id="select" name="select" class="form-control" >
-                  <option value="0" disabled="true">Sélectionner un rôle</option>
-                  <option *ngFor="let role of roles;" [value]="role.id">{{role.description}}</option>
-                </select>
-              </div>
-
-              <div class="input-group mb-1" [ngClass]="{'has-danger': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
-                <span class="input-group-addon"><i class="icon-lock"></i></span>
-                <input [formControl]="password" type="password" class="form-control" placeholder="Mot de passe">
-              </div>
-
-              <div class="form-group" [ngClass]="{'has-danger': ( !repeatPassword.valid && repeatPassword.touched), 'has-success': (repeatPassword.valid && repeatPassword.touched) }">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="icon-lock"></i></span>
-                  <input [formControl]="repeatPassword" type="password" class="form-control" placeholder="Confirmer le mot de passe">
-                </div>
-                <div *ngIf="!passwords.valid && (password.touched && repeatPassword.touched)" class="form-control-feedback">Les mots de passe ne correspondent pas.</div>
-              </div>
-
-              <div class="input-group mb-2">  
-                <picture-uploader #uploader (onUpload)="onUpload($event)"></picture-uploader>
-              </div>
-
-              <button [disabled]="!form.valid" type="submit" class="btn btn-block btn-success">Enregistrer</button>
-            </form>
-          </div>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Enregistrer un utilisateur</strong> 
         </div>
+        <form [formGroup]="form" (ngSubmit)="onRegister(form.value)" class="form-horizontal">
+          <div class="card-block p-2">        
+            <div class="input-group mb-1" [ngClass]="{'has-danger': (!login.valid && login.touched), 'has-success': (login.valid && login.touched)}">
+              <span class="input-group-addon"><i class="icon-user"></i></span>
+              <input [formControl]="login" type="login" class="form-control" placeholder="Login">
+            </div>
+
+            <div class="input-group mb-1" [ngClass]="{'has-danger': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+              <span class="input-group-addon">@</span>
+              <input [formControl]="email" type="email" class="form-control" placeholder="Email">
+            </div>
+
+            <div class="input-group mb-1" [ngClass]="{'has-danger': (!role.valid && role.touched), 'has-success': (role.valid && role.touched)}">
+              <span class="input-group-addon"><i class="icon-user"></i></span>
+              <select [formControl]="role" id="select" name="select" class="form-control" >
+                <option value="" disabled="true">Veuillez sélectionner un rôle</option>
+                <option *ngFor="let role of roles;" [value]="role.id">{{role.description}}</option>
+              </select>
+            </div>
+
+            <div class="input-group mb-1" [ngClass]="{'has-danger': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+              <span class="input-group-addon"><i class="icon-lock"></i></span>
+              <input [formControl]="password" type="password" class="form-control" placeholder="Mot de passe">
+            </div>
+
+            <div class="form-group" [ngClass]="{'has-danger': ( !repeatPassword.valid && repeatPassword.touched), 'has-success': (repeatPassword.valid && repeatPassword.touched) }">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="icon-lock"></i></span>
+                <input [formControl]="repeatPassword" type="password" class="form-control" placeholder="Confirmer le mot de passe">
+              </div>
+              <div *ngIf="!passwords.valid && (password.touched && repeatPassword.touched)" class="form-control-feedback">Les mots de passe ne correspondent pas.</div>
+            </div>
+          </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-md-6">
+                    <button [disabled]="!form.valid" type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-dot-circle-o"></i>&nbsp; Enregistrer</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-block btn-outline-primary" type="reset"><i class="fa fa-ban"></i>&nbsp; Effacer</button>
+                </div>
+              </div>     
+            </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
+

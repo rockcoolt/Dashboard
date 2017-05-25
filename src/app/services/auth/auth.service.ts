@@ -13,6 +13,8 @@ import 'rxjs/add/operator/catch';
 import { API } from '../../config';  
 import { User } from '../../models';  
 
+import { AppComponent } from '../../app.component';
+
 @Injectable()
 export class AuthService {
 
@@ -24,11 +26,11 @@ export class AuthService {
     private login: string;
 
     private authenticationUrl = `${API.server}${API.route}login`;
-    private logoutnUrl = `${API.server}${API.route}logout`;
+    private logoutUrl = `${API.server}${API.route}logout`;
+    private verifyUrl = `${API.server}${API.route}verify`;
 
 
-
-    constructor( private router: Router, private http: Http ) { }
+    constructor( private router: Router, private http: Http, private app: AppComponent) { }
 
     authentication(_login: string, _password: string, _captcha: string): Observable<any> {
 
@@ -44,13 +46,20 @@ export class AuthService {
         });
     };
 
+    verify(): Observable<any>  {
+        return this.http.post(this.verifyUrl, {login: this.Login})
+        .map((res: Response) => res.json())
+        .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+
     logout(): Observable<any>  {
-        return this.http.post(this.logoutnUrl, {login: this.Login})
+        return this.http.post(this.logoutUrl, {login: this.Login})
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error.json() || 'Server error'))
         .do(val => {
             localStorage.clear();
-            this.router.navigate(['login']);
+            this.app.createNotification('Succès', `Vous êtes déconnecté.`, 'success');
+            this.router.navigate(['login']);          
         });
 
     }
@@ -66,8 +75,12 @@ export class AuthService {
         return JSON.parse(localStorage.getItem(this.user));
     }
 
+    get eMail(): string {
+        return !!!this.User? null: this.User.email;
+    }
+
     get Role(): string {
-        return  this.User.role;
+        return  !!!this.User? null: this.User.role;
     }
 
     get Avatar(): string {
@@ -75,7 +88,7 @@ export class AuthService {
     }
 
     get Login(): string {
-        return  this.User.login;
+        return  !!!this.User? null: this.User.login;
     }
 
     get Token(): string {

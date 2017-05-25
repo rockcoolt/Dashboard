@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 import { RecaptchaModule } from 'ng-recaptcha';
 
 // Theme
@@ -24,7 +25,8 @@ const APP_PROVIDERS = [
   AuthService,
   SocketService,
   UploadService,
-  RegisterService
+  RegisterService,
+  AppComponent
 ];
 
 @NgModule({
@@ -32,6 +34,8 @@ const APP_PROVIDERS = [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
     BsDropdownModule.forRoot(),
     ThemeModule.forRoot(),
     RecaptchaModule.forRoot(),

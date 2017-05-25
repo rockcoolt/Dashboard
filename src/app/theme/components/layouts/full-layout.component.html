@@ -39,7 +39,7 @@
       <a class="nav-link" href="#"><i class="icon-location-pin"></i></a>
     </li>
     <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
         <img [src]="avatar" class="img-avatar" alt="admin@bootstrapmaster.com">
         <span class="hidden-md-down">{{login}}</span>
       </a>
@@ -139,13 +139,13 @@
               <a class="nav-link" routerLinkActive="active" [routerLink]="['/login']"><i class="icon-star"></i> Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active" [routerLink]="['/pages/register']"><i class="icon-star"></i> Register</a>
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/register']"><i class="icon-star"></i> Register</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active" [routerLink]="['/pages/404']"><i class="icon-star"></i> Error 404</a>
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/error/404']"><i class="icon-star"></i> Error 404</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLinkActive="active" [routerLink]="['/pages/500']"><i class="icon-star"></i> Error 500</a>
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/error/500']"><i class="icon-star"></i> Error 500</a>
             </li>
           </ul>
         </li>       

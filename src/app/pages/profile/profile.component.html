@@ -24,6 +24,14 @@
               </div>
             </div>
             <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group" [ngClass]="{'has-danger': (!oldPassword.valid && oldPassword.touched), 'has-success': (oldPassword.valid && oldPassword.touched)}">
+                  <span class="input-group-addon"><i class="icon-lock"></i></span>
+                  <input [formControl]="oldPassword" type="password" id="input3-group1" name="input3-group1" class="form-control" placeholder="Ancien mot de passe">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
               <div class="col-md-6">
                 <div class="input-group" [ngClass]="{'has-danger': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
                   <span class="input-group-addon"><i class="icon-lock"></i></span>
@@ -38,15 +46,19 @@
                 </div>
               </div>
             </div>
-            <div class="form-group row">
-              <div class="col-md-6">  
-                <!--<picture-uploader [formControl]="avatar" [picture]="profile.picture" [uploaderOptions]="uploaderOptions" ngDefaultControl></picture-uploader>           -->
-              </div>
-           </div>
+            <div class="input-group mb-2">  
+              <picture-uploader #uploader (onUpload)="onUpload($event)"></picture-uploader>
+            </div>
           </div>
           <div class="card-footer">
-            <button [disabled]="!form.valid" type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Enregistrer</button>
-            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Effacer</button>
+            <div class="row">
+              <div class="col-md-6">
+                  <button [disabled]="!form.valid" type="submit" class="btn btn-block btn-outline-success"><i class="fa fa-dot-circle-o"></i>&nbsp; Enregistrer</button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-block btn-outline-primary" type="reset"><i class="fa fa-ban"></i>&nbsp; Effacer</button>
+              </div>
+            </div>  
           </div>
         </form>
       </div>

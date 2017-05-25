@@ -7,6 +7,8 @@ import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
 import { Selection, User } from '../../models';
 import { RegisterService } from '../../services';
 
+import { AppComponent } from '../../app.component';
+
 @Component({
   templateUrl: 'register.component.html'
 })
@@ -23,9 +25,8 @@ export class RegisterComponent {
   public passwords:FormGroup;
 
   public roles: Array<Selection> = Selection.roles;
-  private files: Array<File>
 
-  constructor(private fb: FormBuilder, private registerService: RegisterService) {
+  constructor(private fb: FormBuilder, private registerService: RegisterService, private app: AppComponent) {
     this.form = fb.group({
       'login': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
@@ -46,22 +47,14 @@ export class RegisterComponent {
 
   public onRegister(values: Object){
     if (this.form.valid) {
-      this.registerService.register(this.login.value, this.email.value, this.password.value, this.role.value, this.files).subscribe({
-        next: message => {
-          console.log(message);
+      this.registerService.register(this.login.value, this.email.value, this.password.value, this.role.value).subscribe({
+        next: reponse => {
+           this.app.createNotification('Succès', reponse.message, 'success');
         },
         error: error => {
-          console.log(error);
+          this.app.createNotification('Erreur', error.message, 'error');
         }   
       });
     }
   }
-
-  public onUpload($event){
-    if($event){
-      this.files = $event;
-      console.log('$event: ', this.files);
-    }   
-  }
-
 }

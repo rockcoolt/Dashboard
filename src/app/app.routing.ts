@@ -16,6 +16,10 @@ export const routes: Routes = [
   },
   {
     path: 'login',
+    component: SimpleLayoutComponent,
+     data: {
+      title: 'Authentification'
+    },
     loadChildren: './pages/login/login.module#LoginModule'
   },
   {

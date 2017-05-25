@@ -24,7 +24,7 @@
  * indent to -9999px. This allows us to actually include text in the markup
  * which will be good for screen readers and accessibility purposes.
  */
-.icon {
+.component .icon {
   display: inline-block;
   vertical-align: top;
   overflow: hidden;
@@ -39,59 +39,59 @@
   ICONS -
 ============================================================================= */
 
-.icon-mono {
+.component .icon-mono {
   background: url("../assets/img/applications/icons.png");
   background-color: #595959;
   -webkit-transition: background 0.3s;
           transition: background 0.3s;
 }
 
-/* facebook */
-.icon-mono.plex {
+/* plex */
+.component .icon-mono.plex {
   background-position: 0 0;
 }
 
-.icon-mono.plex:hover {
+.component .icon-mono.plex:hover {
   background-color: #3b5998;
   background-position: 0 -96px;
 }
 
-/* twitter */
-.icon-mono.rutorrent {
+/* rutorrent */
+.component .icon-mono.rutorrent {
   background-position: -96px 0;
 }
 
-.icon-mono.rutorrent:hover {
+.component .icon-mono.rutorrent:hover {
   background-color: #4099ff;
   background-position: -96px -96px;
 }
 
 /* google plus */
-.icon-mono.googleplus {
+.component .icon-mono.googleplus {
   background-position: -192px 0;
 }
 
-.icon-mono.googleplus:hover {
+.component .icon-mono.googleplus:hover {
   background-color: #d34836;
   background-position: -192px -96px;
 }
 
-/* github */
-.icon-mono.nexcloud {
+/* nexcloud */
+.component .icon-mono.nexcloud {
   background-position: -288px 0;
 }
 
-.icon-mono.nexcloud:hover {
+.component .icon-mono.nexcloud:hover {
   background-color: #333333;
   background-position: -288px -96px;
 }
 
-/* rss */
-.icon-mono.jenkins {
+/* jenkins */
+.component .icon-mono.jenkins {
   background-position: -384px 0;
 }
 
-.icon-mono.jenkins:hover {
+.component .icon-mono.jenkins:hover {
   background-color: #ee802f;
   background-position: -384px -96px;
 }
