@@ -25,17 +25,13 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         let url: string = state.url;
         if (this.authService.isTokenExpired) {
-            this.app.createNotification('Information', `Vous n'êtes pas authentifié.`, 'info');
-            this.router.navigate(['/login']);    
+            this.authService.checkFail(url);
             return Observable.of(false);
         } else {
             return this.checkLogin(url)
             .do(authentified => {
                 if (!authentified) {
-                    this.app.createNotification('Information', `Vous n'êtes pas authentifié.`, 'info');
-                    localStorage.clear();
-                    this.authService.redirectUrl = url;
-                    this.router.navigate(['/login']);    
+                    this.authService.checkFail(url)
                 }
             }); 
         }    

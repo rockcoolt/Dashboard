@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { JwtHelper } from 'angular2-jwt';
+import { CookieService } from 'ngx-cookie';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -30,7 +31,7 @@ export class AuthService {
     private verifyUrl = `${API.server}${API.route}verify`;
 
 
-    constructor( private router: Router, private http: Http, private app: AppComponent) { }
+    constructor( private router: Router, private http: Http, private app: AppComponent, private cookieService:CookieService) { }
 
     authentication(_login: string, _password: string, _captcha: string): Observable<any> {
 
@@ -58,10 +59,19 @@ export class AuthService {
         .catch((error: any) => Observable.throw(error.json() || 'Server error'))
         .do(val => {
             localStorage.clear();
+            this.cookieService.removeAll();
             this.app.createNotification('Succès', `Vous êtes déconnecté.`, 'success');
             this.router.navigate(['login']);          
         });
 
+    }
+
+    checkFail(url: string){
+        localStorage.clear();
+        this.app.createNotification('Information', `Vous n'êtes pas authentifié.`, 'info');
+        this.cookieService.removeAll();
+        this.redirectUrl = url;
+        this.router.navigate(['/login']);  
     }
 
     get isTokenExpired () {

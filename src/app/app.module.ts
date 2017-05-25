@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
+import { CookieModule } from 'ngx-cookie';
+
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -39,6 +41,7 @@ const APP_PROVIDERS = [
     BsDropdownModule.forRoot(),
     ThemeModule.forRoot(),
     RecaptchaModule.forRoot(),
+    CookieModule.forRoot(),
     ChartsModule
   ],
   declarations: [
