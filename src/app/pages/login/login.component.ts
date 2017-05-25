@@ -30,8 +30,7 @@ export class LoginComponent {
         if (this.form.valid) {
           this.authService.authentication(values.login, values.password, captcha).subscribe({
             next: message => {
-              console.log('isLoggedIn: ', this.authService.isLoggedIn);
-              if (this.authService.isLoggedIn) {
+              if (!this.authService.isTokenExpired) {
                 console.log('message: ', message);
                 // Get the redirect URL from our auth service
                 // If no redirect has been set, use the default

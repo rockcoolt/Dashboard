@@ -18,13 +18,13 @@ export class AuthGuard implements CanActivate {
     }
 
     private checkLogin(url: string): boolean {
-        if (this.authService.isLoggedIn) {
-
+        if (!this.authService.isTokenExpired) {
             return true;
          }
         // Store the attempted URL for redirecting
         this.authService.redirectUrl = url;
 
+        localStorage.clear();
         // Navigate to the login page with extras
         this.router.navigate(['login']);
 

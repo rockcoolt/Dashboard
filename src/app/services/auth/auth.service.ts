@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
+import { JwtHelper } from 'angular2-jwt';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/do';
@@ -13,13 +15,18 @@ import { User } from '../../models';
 
 @Injectable()
 export class AuthService {
+
+    private jwtHelper: JwtHelper = new JwtHelper();
     public redirectUrl: string;
     public token: string = 'token';
 
     private user: string = 'user';
     private login: string;
+
     private authenticationUrl = `${API.server}${API.route}login`;
     private logoutnUrl = `${API.server}${API.route}logout`;
+
+
 
     constructor( private router: Router, private http: Http ) { }
 
@@ -33,7 +40,6 @@ export class AuthService {
         .catch((error: any) => Observable.throw(error.json() || 'Server error'))
         .do(val => {
             localStorage.setItem(this.user, JSON.stringify(val.user));
-            localStorage.setItem('isLoggedIn', JSON.stringify(true));
             localStorage.setItem(this.token, JSON.stringify(val.token));
         });
     };
@@ -48,9 +54,14 @@ export class AuthService {
         });
 
     }
-    get isLoggedIn(): boolean {
-        return JSON.parse(localStorage.getItem('isLoggedIn'));
+
+    get isTokenExpired () {
+        if (!!!this.Token) {
+            return true
+        }  
+        return this.jwtHelper.isTokenExpired(this.Token);
     }
+
     get User(): User {
         return JSON.parse(localStorage.getItem(this.user));
     }
