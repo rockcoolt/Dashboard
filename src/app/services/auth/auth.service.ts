@@ -70,7 +70,7 @@ export class AuthService {
         // Store the attempted URL for redirecting
         this.redirectUrl = url;
         // Navigate to the login page with extras
-        // this.router.navigate(['login']);        
+        this.router.navigate(['login']);        
     }
 
     get isTokenExpired () {
