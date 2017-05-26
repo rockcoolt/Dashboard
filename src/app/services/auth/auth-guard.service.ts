@@ -11,45 +11,23 @@ import 'rxjs/add/operator/do';
 
 import { AuthService } from './auth.service';
 
-import { AppComponent } from '../../app.component';
-
 @Injectable()
 
 export class AuthGuard implements CanActivate {
     
-    constructor(private authService: AuthService, private router: Router, private app: AppComponent) {
-    }
+    constructor(private authService: AuthService, 
+    private router: Router) {}
 
-
-
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let url: string = state.url;
-        if (this.authService.isTokenExpired) {
-            this.authService.checkFail(url);
-            return Observable.of(false);
-        } else {
-            return this.checkLogin(url)
-            .do(authentified => {
-                if (!authentified) {
-                    this.authService.checkFail(url)
-                }
-            }); 
-        }    
+        return this.checkLogin(url);         
     }
 
-    private checkLogin(url: string): Observable<boolean> {
-       const self = this;
-       return Observable.create(function (observer) {            
-            self.authService.verify().subscribe({
-                next: message => {
-                    console.log('message:', message);
-                    return observer.next(true);
-                },
-                error: error => {
-                    console.log('error: ', error);
-                    return observer.next(false);
-                }
-            });
-        });
-    }
+    private checkLogin(url: string): boolean {
+        if (!this.authService.isTokenExpired) {
+            return true;           
+        }
+        this.authService.verifyFail(url);
+        return false;  
+    }  
 }

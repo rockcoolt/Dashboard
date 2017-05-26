@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { PictureUploaderComponent } from '../../theme/components';
 import {EmailValidator, EqualPasswordsValidator} from '../../theme/validators';
 
 import { Selection, User } from '../../models';
 import { RegisterService } from '../../services';
-
-import { AppComponent } from '../../app.component';
 
 @Component({
   templateUrl: 'register.component.html'
@@ -26,7 +26,9 @@ export class RegisterComponent {
 
   public roles: Array<Selection> = Selection.roles;
 
-  constructor(private fb: FormBuilder, private registerService: RegisterService, private app: AppComponent) {
+  constructor(private fb: FormBuilder, 
+  private registerService: RegisterService,
+  private toastrService: ToastrService) {
     this.form = fb.group({
       'login': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
@@ -49,10 +51,10 @@ export class RegisterComponent {
     if (this.form.valid) {
       this.registerService.register(this.login.value, this.email.value, this.password.value, this.role.value).subscribe({
         next: reponse => {
-           this.app.createNotification('Succès', reponse.message, 'success');
+          this.toastrService.success(reponse.message, 'Information');
         },
         error: error => {
-          this.app.createNotification('Erreur', error.message, 'error');
+          this.toastrService.error(error.message, 'Attention');
         }   
       });
     }

@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { EmailValidator, EqualPasswordsValidator} from './validators';
 
 // Components

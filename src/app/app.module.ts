@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
@@ -9,9 +10,8 @@ import { CookieModule } from 'ngx-cookie';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { ToastrModule } from 'ngx-toastr';
 
 // Theme
 import { ThemeModule } from './theme/theme.module';
@@ -27,8 +27,7 @@ const APP_PROVIDERS = [
   AuthService,
   SocketService,
   UploadService,
-  RegisterService,
-  AppComponent
+  RegisterService
 ];
 
 @NgModule({
@@ -37,7 +36,7 @@ const APP_PROVIDERS = [
     HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot(),
+    ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
     ThemeModule.forRoot(),
     RecaptchaModule.forRoot(),

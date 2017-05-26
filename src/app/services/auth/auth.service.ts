@@ -4,6 +4,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { JwtHelper } from 'angular2-jwt';
 import { CookieService } from 'ngx-cookie';
+import { ToastrService } from 'ngx-toastr';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -13,8 +14,6 @@ import 'rxjs/add/operator/catch';
 
 import { API } from '../../config';  
 import { User } from '../../models';  
-
-import { AppComponent } from '../../app.component';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +30,10 @@ export class AuthService {
     private verifyUrl = `${API.server}${API.route}verify`;
 
 
-    constructor( private router: Router, private http: Http, private app: AppComponent, private cookieService:CookieService) { }
+    constructor( private router: Router, 
+    private http: Http, 
+    private cookieService:CookieService, 
+    private toastrService: ToastrService) { }
 
     authentication(_login: string, _password: string, _captcha: string): Observable<any> {
 
@@ -40,11 +42,7 @@ export class AuthService {
 
         return this.http.post(this.authenticationUrl, {login: _login, password: _password, captcha: _captcha}, options)
         .map((res: Response) => res.json())
-        .catch((error: any) => Observable.throw(error.json() || 'Server error'))
-        .do(val => {
-            localStorage.setItem(this.user, JSON.stringify(val.user));
-            localStorage.setItem(this.token, JSON.stringify(val.token));
-        });
+        .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     };
 
     verify(): Observable<any>  {
@@ -58,20 +56,21 @@ export class AuthService {
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error.json() || 'Server error'))
         .do(val => {
-            localStorage.clear();
             this.cookieService.removeAll();
-            this.app.createNotification('Succès', `Vous êtes déconnecté.`, 'success');
+            this.toastrService.success(`Vous êtes déconnecté!`, 'Information'); 
             this.router.navigate(['login']);          
         });
 
     }
 
-    checkFail(url: string){
-        localStorage.clear();
-        this.app.createNotification('Information', `Vous n'êtes pas authentifié.`, 'info');
+    verifyFail(url: string){
+        // this.toastrService.clear();
+        this.toastrService.info(`Vous n'êtes pas authentifié!`, 'Information'); 
         this.cookieService.removeAll();
+        // Store the attempted URL for redirecting
         this.redirectUrl = url;
-        this.router.navigate(['/login']);  
+        // Navigate to the login page with extras
+        // this.router.navigate(['login']);        
     }
 
     get isTokenExpired () {
@@ -82,7 +81,7 @@ export class AuthService {
     }
 
     get User(): User {
-        return JSON.parse(localStorage.getItem(this.user));
+        return this.jwtHelper.decodeToken(this.Token);
     }
 
     get eMail(): string {
@@ -102,7 +101,7 @@ export class AuthService {
     }
 
     get Token(): string {
-        return JSON.parse(localStorage.getItem(this.token));
+        return this.cookieService.get(API.tokenKey);
     }
 
 }
